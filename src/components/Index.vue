@@ -255,6 +255,7 @@ export default {
         padding: 10px;
         background: #fff;
         border:#8b8989 1px solid;
+        border-radius: 5px;
     }
     .play-list {
         overflow: hidden;

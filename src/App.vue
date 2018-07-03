@@ -23,7 +23,7 @@ export default {
   color: #2c3e50;
 }
 body{
-  height: 100vh;
+  min-height: 100vh;
   background: #9e9898;
   font-family: YouYuan;
 }
