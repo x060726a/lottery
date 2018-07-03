@@ -27,4 +27,7 @@ body{
   background: #9e9898;
   font-family: YouYuan;
 }
+.el-scrollbar__wrap{
+  overflow-x: hidden;
+}
 </style>

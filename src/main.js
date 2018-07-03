@@ -8,13 +8,13 @@ import qs from 'qs'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import '../static/css/base.css'
+import '../static/css/flipclock.css'
 import $ from 'jquery'
 Vue.use(ElementUI);
 Vue.prototype.$http = axios
 Vue.prototype.$qs = qs
 Vue.config.productionTip = false
 router.beforeEach((to,from,next)=>{
-  console.log(to);
   next();
 });
 /* eslint-disable no-new */
