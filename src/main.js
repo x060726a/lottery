@@ -14,9 +14,9 @@ Vue.use(ElementUI);
 Vue.prototype.$http = axios
 Vue.prototype.$qs = qs
 Vue.config.productionTip = false
-router.beforeEach((to,from,next)=>{
-  next();
-});
+// router.beforeEach((to,from,next)=>{
+//   next();
+// });
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
