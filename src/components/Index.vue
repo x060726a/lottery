@@ -217,6 +217,8 @@ export default {
                         });
                     });
                 }
+                TweenLite.to(this.$data,0.5,{betCount:0});
+                TweenLite.to(this.$data,0.5,{betMoney:0});
             };
             //根据玩法计算出选号模式
             lotteryList.CrtPlayMethod[self.init.playKey].forEach(ele=>{
@@ -233,6 +235,8 @@ export default {
                             });
                         });
                     }
+                    TweenLite.to(this.$data,0.5,{betCount:0});
+                    TweenLite.to(this.$data,0.5,{betMoney:0});
                 };
             });
             //计算空的投注号码
