@@ -4,6 +4,8 @@
             <Countdown @open="open()"></Countdown>
             <Issuenum ref="issuenum"></Issuenum>
             <div style="clear:both"></div>
+            <div>{{is_stop_money}}</div>
+            <div>{{is_stop_count}}</div>
             <!-- 投注body -->
             <div class="lottery-body">
                 <ul class="play-list">
@@ -72,16 +74,17 @@
                             <span class="jia" @click="addition()">+</span>
                         </div>
                         <el-button-group class="button-bar">
-                            <el-button size="mini" @click="moneyMode=2">元</el-button>
-                            <el-button size="mini" @click="moneyMode=0.2">角</el-button>
-                            <el-button size="mini" @click="moneyMode=0.02">分</el-button>
-                            <el-button size="mini" @click="moneyMode=0.002">厘</el-button>
+                            <el-button size="mini" @click="moneyMode=1">元</el-button>
+                            <el-button size="mini" @click="moneyMode=0.1">角</el-button>
+                            <el-button size="mini" @click="moneyMode=0.01">分</el-button>
+                            <el-button size="mini" @click="moneyMode=0.001">厘</el-button>
                         </el-button-group>
+                        <div class="mode_name">{{mode_name}}</div>
                         <div class="bet-total">选了 <span>{{betCount.toFixed(0)}}</span> 注&nbsp&nbsp&nbsp&nbsp共 <span>￥{{(betMoney==1?0:betMoney).toFixed(0)}}</span> 元</div>
                     </div>
                     <div class="right">
                     <el-button-group class="button-bar">
-                        <el-button type="success" @click="add_lottery_box()"><i class="el-icon-circle-plus-outline el-icon--left"></i>添加号码</el-button>
+                        <el-button type="success" @click="add_shoppingcar()"><i class="el-icon-circle-plus-outline el-icon--left"></i>添加号码</el-button>
                         <el-button type="primary">机选号码<i class="el-icon-tickets el-icon--right"></i></el-button>
                     </el-button-group>
                     </div>
@@ -124,7 +127,7 @@
                             <div><span>190000</span>元</div>
                         </div>
                         <div class="btn">
-                            <el-button type="success" @click="betlottery()">一键投注</el-button>
+                            <el-button type="success">一键投注</el-button>
                         </div>
                         <div class="btn">
                             <el-button type="primary">立即投注</el-button>
@@ -163,13 +166,16 @@ export default {
                 playSub: null,
                 ball:{}
             },
+            mode_name:'元',
             betNum:'1倍',
             betCount:0,//注数
             all_betCount:0,
             betMoney:0,//金额
             all_betMoney:0,
             moneyMode:1,
-            betList:[]
+            betList:[],
+            is_stop_money:false,
+            is_stop_count:false
         };
     },
     mixins: [mixinConf,mixinFun],
@@ -452,6 +458,13 @@ export default {
             height: 100%;
             position: relative;
             float: left;
+            .mode_name{
+                position: absolute;
+                top: 25px;
+                left: 348px;
+                font-size: 12px;
+                color: red;
+            }
             .play-options-number{
                 height: 25px;
                 border:rgb(184, 182, 182) 1px solid;

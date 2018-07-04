@@ -3,6 +3,7 @@ export default {
         'init.ball':{
             handler:function(v,o){
                 var arr = [];
+                var self = this;
                 for(var k in v ){
                     if(v[k].length!=0){
                         arr.push(v[k].length);
@@ -11,19 +12,59 @@ export default {
                 var i;
                 if(arr.length>0){
                     i = eval(arr.join('*'));
-                    TweenLite.to(this.$data,0.5,{betCount:i});
+                    var myAnimation_Count = TweenLite.to(this.$data,0.5,{betCount:i});
+                    myAnimation_Count.eventCallback('onStart',function(){
+                        self.is_stop_count = false;
+                    });
+                    myAnimation_Count.eventCallback('onComplete',function(){
+                        self.is_stop_count = true;
+                    });
                     var myMode = this.moneyMode*i*2;
-                    TweenLite.to(this.$data,0.5,{betMoney:myMode});
+                    var bet_num = parseInt(this.betNum);
+                    var myAnimation_Money = TweenLite.to(this.$data,0.5,{betMoney:myMode*bet_num});
+                    myAnimation_Money.eventCallback('onStart',function(){
+                        self.is_stop_money = false;
+                    });
+                    myAnimation_Money.eventCallback('onComplete',function(){
+                        self.is_stop_money = true;
+                    });
                 }
             },
             deep: true
         },
         moneyMode:function(v,o){
-            TweenLite.to(this.$data,0.5,{betMoney:this.betCount*v});
+            var self = this;
+            var bet_num = parseInt(this.betNum);
+            var myAnimation_Count = TweenLite.to(this.$data,0.5,{betMoney:this.betCount*bet_num*v*2});
+            myAnimation_Count.eventCallback('onStart',function(){
+                self.is_stop_money = false;
+            });
+            myAnimation_Count.eventCallback('onComplete',function(){
+                self.is_stop_money = true;
+            });
+            var modeObj = {
+                '元':1,
+                '角':0.1,
+                '分':0.01,
+                '厘':0.001,
+            }
+            for(var k in modeObj){
+                if(modeObj[k]==self.moneyMode){
+                    self.mode_name = k
+                }
+            }
         },
         betNum:function(v,o){
+            var self = this;
+            console.log(v);
             var num = parseInt(v);
-            TweenLite.to(this.$data,0.5,{betMoney:this.betMoney*num});
+            var myAnimation_Money = TweenLite.to(this.$data,0.5,{betMoney:this.betCount*num*2});
+            myAnimation_Money.eventCallback('onStart',function(){
+                self.is_stop_money = false;
+            });
+            myAnimation_Money.eventCallback('onComplete',function(){
+                self.is_stop_money = true;
+            });
         }
     },
     methods:{
@@ -43,10 +84,6 @@ export default {
                 });
             });
         },
-        add_lottery_box(){
-            var self = this;
-            self.betlottery();
-        },
         //删除购彩篮list
         delete_Box_list(idx){
             var self = this;
@@ -61,8 +98,12 @@ export default {
                 });
             }
         },
-        //投注
-        betlottery(){
+        //添加购彩篮
+        add_shoppingcar(){
+            if(this.is_stop_money==false||this.is_stop_count==false){
+                console.log(123);
+                return;
+            };
             var self = this;
             var arr_check = [];
             for(var k in self.init.ball){
@@ -83,22 +124,24 @@ export default {
                 '分':0.01,
                 '厘':0.001,
             }
-            var mode;
             for(var k in modeObj){
                 if(modeObj[k]==self.moneyMode){
-                    mode = k
+                    self.mode_name = k
                 }
             }
+            console.log(self.mode_name);
+            console.log(self.moneyMode);
             var betObj = {
                 play_number:play_number.join('|'),
                 bet_issue:self.issue,
-                bet_mode:mode,
+                bet_mode:self.mode_name,
                 bet_count:self.betCount.toFixed(0),
                 bet_num:parseInt(self.betNum),
                 bet_money:self.betMoney.toFixed(0),
                 bet_expected_money:190000
             }
             self.betList.push(betObj);
+            console.log(self.betList);
             self.betList.forEach(ele=>{
                 self.all_betCount = self.all_betCount + ele.bet_count*1;
                 self.all_betMoney = self.all_betMoney + ele.bet_money*1;
@@ -114,7 +157,7 @@ export default {
             }
             console.log(this.betNum);
         },
-        //倍的加减 -
+        //倍的加减 +
         addition(){
             var num = parseInt(this.betNum);
             if(num>9999){
@@ -148,7 +191,7 @@ export default {
             self.$refs.balldom[idx].childNodes.forEach(ele => {
                 ele.className = "ripple active"
             });
-            console.log(self.init.ball);
+            // console.log(self.init.ball);
         },
         //选中大
         seleteBig(key,val,idx){
@@ -160,7 +203,7 @@ export default {
                 this.$refs.balldom[idx].childNodes[i+5].className = "ripple active"
             }
             self.$set(self.init.ball,key,arr);
-            console.log(self.init.ball);
+            // console.log(self.init.ball);
         },
         //选中小
         seleteMin(key,val,idx){
@@ -172,7 +215,7 @@ export default {
                 this.$refs.balldom[idx].childNodes[i].className = "ripple active"
             }
             self.$set(self.init.ball,key,arr);
-            console.log(self.init.ball);
+            // console.log(self.init.ball);
         },
         //选中奇
         seleteOdd(key,val,idx){
