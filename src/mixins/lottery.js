@@ -164,13 +164,16 @@ export default {
         //倍的加减 +
         addition(){
             var num = parseInt(this.betNum);
-            if(num>9999){
+            if(num<9999){
                 num ++;
                 this.betNum = num+'倍';
             }
             console.log(this.betNum);
         },
         changeVal(){
+            if(this.betNum=="倍"||this.betNum==""){
+                this.betNum = "1倍";
+            }
             if(this.betNum.indexOf('倍')>-1){
                 console.log(this.betNum);
             }else{
