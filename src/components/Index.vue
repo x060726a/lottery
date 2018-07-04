@@ -4,8 +4,6 @@
             <Countdown @open="open()"></Countdown>
             <Issuenum ref="issuenum"></Issuenum>
             <div style="clear:both"></div>
-            <div>{{is_stop_money}}</div>
-            <div>{{is_stop_count}}</div>
             <!-- 投注body -->
             <div class="lottery-body">
                 <ul class="play-list">
