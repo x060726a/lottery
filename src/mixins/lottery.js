@@ -9,7 +9,8 @@ export default {
                         arr.push(v[k].length);
                     }
                 }
-                var i;
+                console.log(arr);
+                var i = 0;
                 if(arr.length>0){
                     i = eval(arr.join('*'));
                     var myAnimation_Count = TweenLite.to(this.$data,0.5,{betCount:i});
@@ -28,6 +29,9 @@ export default {
                     myAnimation_Money.eventCallback('onComplete',function(){
                         self.is_stop_money = true;
                     });
+                }else{
+                    TweenLite.to(this.$data,0.5,{betCount:i.toFixed(0)});
+                    TweenLite.to(this.$data,0.5,{betMoney:0});
                 }
             },
             deep: true
