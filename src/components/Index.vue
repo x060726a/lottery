@@ -409,7 +409,7 @@ export default {
                     width: 10%;
                 }
                 .ball-number {
-                    width: 65%;
+                    width: 60%;
                     display: table-cell;
                     vertical-align: middle;
                     margin-top: 4px;

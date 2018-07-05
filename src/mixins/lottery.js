@@ -9,7 +9,6 @@ export default {
                         arr.push(v[k].length);
                     }
                 }
-                console.log(arr);
                 var i = 0;
                 if(arr.length>0){
                     i = eval(arr.join('*'));
@@ -60,7 +59,6 @@ export default {
         },
         betNum:function(v,o){
             var self = this;
-            console.log(v);
             var num = parseInt(v);
             var myAnimation_Money = TweenLite.to(this.$data,0.5,{betMoney:this.betCount*num*2});
             myAnimation_Money.eventCallback('onStart',function(){
@@ -96,6 +94,8 @@ export default {
                 self.all_betCount = 0;
                 self.all_betMoney = 0;
             }else{
+                self.all_betCount = 0;
+                self.all_betMoney = 0;
                 self.betList.forEach(ele=>{
                     self.all_betCount = self.all_betCount + ele.bet_count*1;
                     self.all_betMoney = self.all_betMoney + ele.bet_money*1;
@@ -133,8 +133,6 @@ export default {
                     self.mode_name = k
                 }
             }
-            console.log(self.mode_name);
-            console.log(self.moneyMode);
             var betObj = {
                 play_number:play_number.join('|'),
                 bet_issue:self.issue,
@@ -146,6 +144,8 @@ export default {
             }
             self.betList.push(betObj);
             console.log(self.betList);
+            self.all_betCount = 0;
+            self.all_betMoney = 0;
             self.betList.forEach(ele=>{
                 self.all_betCount = self.all_betCount + ele.bet_count*1;
                 self.all_betMoney = self.all_betMoney + ele.bet_money*1;
@@ -159,7 +159,6 @@ export default {
                 num --;
                 this.betNum = num+'倍';
             }
-            console.log(this.betNum);
         },
         //倍的加减 +
         addition(){
@@ -168,14 +167,13 @@ export default {
                 num ++;
                 this.betNum = num+'倍';
             }
-            console.log(this.betNum);
         },
         changeVal(){
             if(this.betNum=="倍"||this.betNum==""){
                 this.betNum = "1倍";
             }
             if(this.betNum.indexOf('倍')>-1){
-                console.log(this.betNum);
+
             }else{
                 this.betNum = this.betNum+'倍'
             }
