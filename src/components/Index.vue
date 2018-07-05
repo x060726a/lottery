@@ -53,7 +53,16 @@
                                 </div>
                             </div>
                         </div>
-                        <div v-if="lotteryInit.CrtPlayBallMethod==false">手动输入</div>
+                        <div v-if="lotteryInit.CrtPlayBallMethod==false">
+                            <div class="textarea-wrap">
+                                <el-input
+                                type="textarea"
+                                rows="12"
+                                resize="none"
+                                placeholder="请输入内容">
+                                </el-input>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="play-options">
@@ -375,6 +384,14 @@ export default {
             width: 70%;
             vertical-align: middle;
             border-bottom: #afadad 1px solid;
+            .textarea-wrap{
+                width: 900px;
+                height: 300px;
+                display: table-cell;
+                vertical-align: middle;
+                padding-left: 200px;
+                padding-right: 200px;
+            }
             .select-ball-list {
                 width: calc(100% - 20px);
                 padding: 10px 0px 10px 0px;
